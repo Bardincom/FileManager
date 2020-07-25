@@ -19,6 +19,8 @@
 		A2F2553124CB2C230064CE50 /* DocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F2552F24CB2C230064CE50 /* DocumentTableViewCell.xib */; };
 		A2F2553424CB2CA90064CE50 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2553224CB2CA90064CE50 /* DocumentsViewController.swift */; };
 		A2F2553524CB2CA90064CE50 /* DocumentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F2553324CB2CA90064CE50 /* DocumentsViewController.xib */; };
+		A2F2553824CB66080064CE50 /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2553724CB66070064CE50 /* IconImage.swift */; };
+		A2F2553A24CB7E420064CE50 /* Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2553924CB7E420064CE50 /* Names.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -36,6 +38,8 @@
 		A2F2552F24CB2C230064CE50 /* DocumentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DocumentTableViewCell.xib; path = ../DocumentTableViewCell.xib; sourceTree = "<group>"; };
 		A2F2553224CB2CA90064CE50 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
 		A2F2553324CB2CA90064CE50 /* DocumentsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DocumentsViewController.xib; sourceTree = "<group>"; };
+		A2F2553724CB66070064CE50 /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
+		A2F2553924CB7E420064CE50 /* Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Names.swift; sourceTree = "<group>"; };
 		AC380819EB6080064C931F5B /* Pods-FileManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FileManager.release.xcconfig"; path = "Target Support Files/Pods-FileManager/Pods-FileManager.release.xcconfig"; sourceTree = "<group>"; };
 		BE9BBD3B09224CA6D7831156 /* Pods_FileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -97,6 +101,7 @@
 		A2F2552524CB15360064CE50 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				A2F2553B24CB7E470064CE50 /* Constants */,
 				A2F2552624CB15880064CE50 /* UITableView+Extension.swift */,
 			);
 			path = Helpers;
@@ -128,6 +133,15 @@
 				A2F2552F24CB2C230064CE50 /* DocumentTableViewCell.xib */,
 			);
 			path = DocumentCell;
+			sourceTree = "<group>";
+		};
+		A2F2553B24CB7E470064CE50 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				A2F2553724CB66070064CE50 /* IconImage.swift */,
+				A2F2553924CB7E420064CE50 /* Names.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		D5921F719F3FB3932F9A544B /* Pods */ = {
@@ -258,7 +272,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F2553824CB66080064CE50 /* IconImage.swift in Sources */,
 				A2F2553424CB2CA90064CE50 /* DocumentsViewController.swift in Sources */,
+				A2F2553A24CB7E420064CE50 /* Names.swift in Sources */,
 				A2F2550D24CAF2420064CE50 /* AppDelegate.swift in Sources */,
 				A2F2553024CB2C230064CE50 /* DocumentTableViewCell.swift in Sources */,
 				A2F2550F24CAF2420064CE50 /* SceneDelegate.swift in Sources */,

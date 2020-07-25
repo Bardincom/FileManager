@@ -13,7 +13,6 @@ class DocumentTableViewCell: UITableViewCell {
   @IBOutlet var imageFile: UIImageView!
   @IBOutlet var nameFile: UILabel!
 
-
     override func awakeFromNib() {
         super.awakeFromNib()
         // Initialization code
@@ -24,5 +23,4 @@ class DocumentTableViewCell: UITableViewCell {
 
         // Configure the view for the selected state
     }
-    
 }
