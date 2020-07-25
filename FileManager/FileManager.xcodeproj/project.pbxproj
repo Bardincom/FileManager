@@ -10,11 +10,17 @@
 		7A549B2F1011EB47D237EC11 /* Pods_FileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9BBD3B09224CA6D7831156 /* Pods_FileManager.framework */; };
 		A2F2550D24CAF2420064CE50 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2550C24CAF2420064CE50 /* AppDelegate.swift */; };
 		A2F2550F24CAF2420064CE50 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2550E24CAF2420064CE50 /* SceneDelegate.swift */; };
-		A2F2551124CAF2420064CE50 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2551024CAF2420064CE50 /* ViewController.swift */; };
 		A2F2551624CAF2460064CE50 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = A2F2551524CAF2460064CE50 /* Assets.xcassets */; };
 		A2F2551924CAF2460064CE50 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A2F2551724CAF2460064CE50 /* LaunchScreen.storyboard */; };
 		A2F2552124CAF3380064CE50 /* .gitignore in Resources */ = {isa = PBXBuildFile; fileRef = A2F2552024CAF3380064CE50 /* .gitignore */; };
 		A2F2552324CB09720064CE50 /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = A2F2552224CB09720064CE50 /* .swiftlint.yml */; };
+		A2F2552724CB15880064CE50 /* UITableView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2552624CB15880064CE50 /* UITableView+Extension.swift */; };
+		A2F2553024CB2C230064CE50 /* DocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2552E24CB2C230064CE50 /* DocumentTableViewCell.swift */; };
+		A2F2553124CB2C230064CE50 /* DocumentTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F2552F24CB2C230064CE50 /* DocumentTableViewCell.xib */; };
+		A2F2553424CB2CA90064CE50 /* DocumentsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2553224CB2CA90064CE50 /* DocumentsViewController.swift */; };
+		A2F2553524CB2CA90064CE50 /* DocumentsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A2F2553324CB2CA90064CE50 /* DocumentsViewController.xib */; };
+		A2F2553824CB66080064CE50 /* IconImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2553724CB66070064CE50 /* IconImage.swift */; };
+		A2F2553A24CB7E420064CE50 /* Names.swift in Sources */ = {isa = PBXBuildFile; fileRef = A2F2553924CB7E420064CE50 /* Names.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,12 +28,18 @@
 		A2F2550924CAF2420064CE50 /* FileManager.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = FileManager.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A2F2550C24CAF2420064CE50 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A2F2550E24CAF2420064CE50 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		A2F2551024CAF2420064CE50 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		A2F2551524CAF2460064CE50 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		A2F2551824CAF2460064CE50 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		A2F2551A24CAF2460064CE50 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		A2F2552024CAF3380064CE50 /* .gitignore */ = {isa = PBXFileReference; lastKnownFileType = text; path = .gitignore; sourceTree = "<group>"; };
 		A2F2552224CB09720064CE50 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		A2F2552624CB15880064CE50 /* UITableView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Extension.swift"; sourceTree = "<group>"; };
+		A2F2552E24CB2C230064CE50 /* DocumentTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DocumentTableViewCell.swift; path = ../DocumentTableViewCell.swift; sourceTree = "<group>"; };
+		A2F2552F24CB2C230064CE50 /* DocumentTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = DocumentTableViewCell.xib; path = ../DocumentTableViewCell.xib; sourceTree = "<group>"; };
+		A2F2553224CB2CA90064CE50 /* DocumentsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DocumentsViewController.swift; sourceTree = "<group>"; };
+		A2F2553324CB2CA90064CE50 /* DocumentsViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DocumentsViewController.xib; sourceTree = "<group>"; };
+		A2F2553724CB66070064CE50 /* IconImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IconImage.swift; sourceTree = "<group>"; };
+		A2F2553924CB7E420064CE50 /* Names.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Names.swift; sourceTree = "<group>"; };
 		AC380819EB6080064C931F5B /* Pods-FileManager.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FileManager.release.xcconfig"; path = "Target Support Files/Pods-FileManager/Pods-FileManager.release.xcconfig"; sourceTree = "<group>"; };
 		BE9BBD3B09224CA6D7831156 /* Pods_FileManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_FileManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -76,14 +88,60 @@
 		A2F2550B24CAF2420064CE50 /* FileManager */ = {
 			isa = PBXGroup;
 			children = (
-				A2F2550C24CAF2420064CE50 /* AppDelegate.swift */,
-				A2F2550E24CAF2420064CE50 /* SceneDelegate.swift */,
-				A2F2551024CAF2420064CE50 /* ViewController.swift */,
+				A2F2552824CB15E40064CE50 /* Code */,
+				A2F2552924CB1C540064CE50 /* ViewController */,
 				A2F2551524CAF2460064CE50 /* Assets.xcassets */,
 				A2F2551724CAF2460064CE50 /* LaunchScreen.storyboard */,
 				A2F2551A24CAF2460064CE50 /* Info.plist */,
+				A2F2552524CB15360064CE50 /* Helpers */,
 			);
 			path = FileManager;
+			sourceTree = "<group>";
+		};
+		A2F2552524CB15360064CE50 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				A2F2553B24CB7E470064CE50 /* Constants */,
+				A2F2552624CB15880064CE50 /* UITableView+Extension.swift */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		A2F2552824CB15E40064CE50 /* Code */ = {
+			isa = PBXGroup;
+			children = (
+				A2F2550C24CAF2420064CE50 /* AppDelegate.swift */,
+				A2F2550E24CAF2420064CE50 /* SceneDelegate.swift */,
+			);
+			path = Code;
+			sourceTree = "<group>";
+		};
+		A2F2552924CB1C540064CE50 /* ViewController */ = {
+			isa = PBXGroup;
+			children = (
+				A2F2553624CB2CC90064CE50 /* DocumentCell */,
+				A2F2553224CB2CA90064CE50 /* DocumentsViewController.swift */,
+				A2F2553324CB2CA90064CE50 /* DocumentsViewController.xib */,
+			);
+			path = ViewController;
+			sourceTree = "<group>";
+		};
+		A2F2553624CB2CC90064CE50 /* DocumentCell */ = {
+			isa = PBXGroup;
+			children = (
+				A2F2552E24CB2C230064CE50 /* DocumentTableViewCell.swift */,
+				A2F2552F24CB2C230064CE50 /* DocumentTableViewCell.xib */,
+			);
+			path = DocumentCell;
+			sourceTree = "<group>";
+		};
+		A2F2553B24CB7E470064CE50 /* Constants */ = {
+			isa = PBXGroup;
+			children = (
+				A2F2553724CB66070064CE50 /* IconImage.swift */,
+				A2F2553924CB7E420064CE50 /* Names.swift */,
+			);
+			path = Constants;
 			sourceTree = "<group>";
 		};
 		D5921F719F3FB3932F9A544B /* Pods */ = {
@@ -155,6 +213,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A2F2553124CB2C230064CE50 /* DocumentTableViewCell.xib in Resources */,
+				A2F2553524CB2CA90064CE50 /* DocumentsViewController.xib in Resources */,
 				A2F2552324CB09720064CE50 /* .swiftlint.yml in Resources */,
 				A2F2552124CAF3380064CE50 /* .gitignore in Resources */,
 				A2F2551924CAF2460064CE50 /* LaunchScreen.storyboard in Resources */,
@@ -212,9 +272,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				A2F2551124CAF2420064CE50 /* ViewController.swift in Sources */,
+				A2F2553824CB66080064CE50 /* IconImage.swift in Sources */,
+				A2F2553424CB2CA90064CE50 /* DocumentsViewController.swift in Sources */,
+				A2F2553A24CB7E420064CE50 /* Names.swift in Sources */,
 				A2F2550D24CAF2420064CE50 /* AppDelegate.swift in Sources */,
+				A2F2553024CB2C230064CE50 /* DocumentTableViewCell.swift in Sources */,
 				A2F2550F24CAF2420064CE50 /* SceneDelegate.swift in Sources */,
+				A2F2552724CB15880064CE50 /* UITableView+Extension.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
