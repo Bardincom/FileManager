@@ -9,16 +9,27 @@
 import UIKit
 
 final class DocumentsViewController: UIViewController {
-  var documentStorage = [String]()
+  let fileManagerServise = FileManagerService()
+  let list = [String]()
 
   @IBOutlet private var documentsTableView: UITableView! {
     willSet {
       newValue.register(nibCell: DocumentTableViewCell.self)
     }
   }
+  var path = ""
+  var directoryPath: String {
+    get {
+      return path
+    }
+    set {
+      path = newValue
+    }
+  }
 
   override func viewDidLoad() {
     super.viewDidLoad()
+//    print(NSHomeDirectory())
     setupNavigationBar()
   }
 }
@@ -26,14 +37,13 @@ final class DocumentsViewController: UIViewController {
 // MARK: DataSource
 extension DocumentsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    //    documentStorage.count
-    1
+    fileManagerServise.listFiles(in: directoryPath).count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeue(reusable: DocumentTableViewCell.self, for: indexPath)
-    cell.imageFile.image = Icon.addFile
-    cell.nameFile.text = "Document"
+    let object = fileManagerServise.listFiles(in: directoryPath)[indexPath.row]
+    cell.displayObject(object)
     return cell
   }
 }
@@ -41,7 +51,8 @@ extension DocumentsViewController: UITableViewDataSource {
 // MARK: Delegate
 extension DocumentsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    print("Нажали на ячейку")
+    let object = fileManagerServise.listFiles(in: directoryPath)[indexPath.row]
+    goToDirectory(object.url.absoluteString, with: object.name)
 
     documentsTableView.deselectRow(at: indexPath, animated: true)
   }
@@ -50,15 +61,33 @@ extension DocumentsViewController: UITableViewDelegate {
 
 private extension DocumentsViewController {
   func setupNavigationBar() {
-    title = Names.documents
     navigationItem.rightBarButtonItems = .some([
-      UIBarButtonItem(image: Icon.addFile, style: .plain, target: self, action: #selector(tapButton)),
-      UIBarButtonItem(image: Icon.addDirectory, style: .plain, target: self, action: #selector(tapButton))
+      UIBarButtonItem(image: Icon.addFile, style: .plain, target: self, action: #selector(addFile)),
+      UIBarButtonItem(image: Icon.addDirectory, style: .plain, target: self, action: #selector(addDirectory))
     ])
   }
 
+  func goToDirectory(_ path: String, with name: String) {
+    let viewController = DocumentsViewController()
+    viewController.title = name
+    viewController.directoryPath = path
+    navigationController?.pushViewController(viewController, animated: true)
+  }
+
   @objc
-  func tapButton() {
-    print("Tap")
+  func addDirectory() {
+    Alert.showAlert(self, Names.directoryName) {
+      print(self.directoryPath)
+      self.fileManagerServise.writeDirectory($0, at: self.directoryPath)
+      self.documentsTableView.reloadData()
+    }
+  }
+
+  @objc
+  func addFile(_ directory: String) {
+    Alert.showAlert(self, Names.fileName) {
+      self.fileManagerServise.writeFile($0)
+      self.documentsTableView.reloadData()
+    }
   }
 }

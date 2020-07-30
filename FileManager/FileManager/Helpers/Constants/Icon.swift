@@ -1,5 +1,5 @@
 //
-//  IconImage.swift
+//  Icon.swift
 //  FileManager
 //
 //  Created by Aleksey Bardin on 24.07.2020.
