@@ -10,7 +10,6 @@ import UIKit
 
 final class Alert {
 
-
   /// Выводит окно для ввода на звания файла или папки
   /// - Parameters:
   ///   - viewController: предать контроллер в котором немобходимо вывести алерт
@@ -27,7 +26,7 @@ final class Alert {
 
     alert.addAction(.init(title: "Cancel", style: .cancel, handler: nil))
     alert.addAction(.init(title: "Create", style: .default, handler: { _ in
-      guard let nameFile = alert.textFields?[0].text else { return }
+      guard let nameFile = alert.textFields?.first?.text else { return }
       hendler(nameFile)
     }))
 

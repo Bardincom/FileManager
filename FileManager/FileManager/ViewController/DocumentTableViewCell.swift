@@ -13,8 +13,8 @@ final class DocumentTableViewCell: UITableViewCell {
   @IBOutlet private var imageFile: UIImageView!
   @IBOutlet private var nameFile: UILabel!
 
-  func displayObject(_ object: Object) {
-    nameFile.text = object.name
-    object.type == .directory ? (imageFile.image = Icon.directory) : (imageFile.image = Icon.file)
+  func displayObject(_ object: String) {
+    nameFile.text = object
+//    object.type == .directory ? (imageFile.image = Icon.directory) : (imageFile.image = Icon.file)
   }
 }

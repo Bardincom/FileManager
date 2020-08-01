@@ -8,84 +8,74 @@
 
 import Foundation
 
-enum ObjectType {
-  case directory
-  case file
-}
-
-struct Object {
-  var type: ObjectType
-  var url: URL
-  var name: String
-
-}
+//enum ObjectType {
+//  case directory
+//  case file
+//}
+//
+//struct Object {
+//  var type: ObjectType
+//  var url: URL
+//  var name: String
+//}
 
 struct FileManagerService {
 
   let mainDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 
-  func writeDirectory(_ name: String, at path: String) {
-    guard let urlPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return }
-    print("urlPath --- \(urlPath) ---")
-    if !FileManager.default.fileExists(atPath: urlPath.path) {
-      try? FileManager.default.createDirectory(at: urlPath, withIntermediateDirectories: false, attributes: nil)
-    } else {
-      print("Заходим сюда")
-    }
-//    guard let directory = getMainDirectory() else {
-//      print("Сюда2")
-//
-//      return }
-//    let path = getMainDirectory()?.appendingPathComponent(<#T##pathComponent: String##String#>) + "/" + "\(name)"
-//    let path = directory.appendingPathComponent(path).appendingPathComponent(name)
-//    try? FileManager.default.createDirectory(at: path, withIntermediateDirectories: false)
+  /// Список обхектов содержищихся в директории
+  /// - Parameter path: Путь к директории, если nil отображается список в корневой папке
+  /// - Returns: Возвращаем список объектов
+  func listObject(at path: String?) -> [String] {
 
+    guard let path = path else {
+
+      guard let directoryPath = mainDirectory?.path,
+        let list = try? FileManager.default.contentsOfDirectory(atPath: directoryPath) else { return [String]() }
+      return list
+    }
+
+    guard let directoryPath = mainDirectory?.appendingPathComponent(path).path,
+      let list = try? FileManager.default.contentsOfDirectory(atPath: directoryPath) else { return [String]() }
+
+    return list
   }
 
+  /// Создать директорию
+  /// - Parameters:
+  ///   - path: Путь директории, если nil создается в корневой папке
+  ///   - name: Имя новой директории
+  func createDirectory(at path: String?, with name: String) {
 
-//  func createDirectory(with name: String, at path: String) {
-//         guard let url = documentDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return }
-//         print("createDirectory \(url)")
-//         if FileManager.default.fileExists(atPath: url.path) {
-//             print("You alreade Have file with this name")
-//         } else {
-//             try? FileManager.default.createDirectory(at: url, withIntermediateDirectories: false, attributes: nil)
-//         }
-//     }
+    guard let path = path else {
 
-  func writeFile(_ name: String) {
-
-//        let path = getMainDirectory() + "/" + "\(name)"
-//      FileManager.default.createFile(atPath: path, contents: nil, attributes: nil)
-      }
-
-  func listFiles(in directory: String) -> [Object] {
-    print("Directory: \(directory)")
-    guard let mainDirectory = mainDirectory?.appendingPathComponent(directory),
-        let list = try? FileManager.default.contentsOfDirectory(atPath: mainDirectory.path)
-        else {
-          print("вот тут")
-          return [] }
-    print(mainDirectory)
-    let object: [Object] = list.sorted().map { name in
-        let url = mainDirectory.appendingPathComponent(name)
-
-        if url.hasDirectoryPath {
-          return Object(type: .directory, url: url, name: name)
-        } else {
-          return Object(type: .file, url: url, name: name)
-        }
+      guard let directoryPath = mainDirectory?.appendingPathComponent(name).path else { return }
+      try? FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true, attributes: nil)
+      return
     }
 
-      return object
-    }
-}
-
-private extension FileManagerService {
-  func getMainDirectory() -> URL? {
-    guard let urlPath = mainDirectory else {
-      print("Сюда1")
-      return nil}
-    return urlPath
+    guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name).path else { return }
+    try? FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true, attributes: nil)
   }
+
+  /// Создать тектовый файл
+  /// - Parameters:
+  ///   - path: Путь создания файла, если nil создается в корневой папке
+  ///   - name: Имя нового текстового файла
+  func createFile(at path: String?, with name: String) {
+
+    guard let path = path else {
+
+      guard let directoryPath = mainDirectory?.appendingPathComponent(name).path else { return }
+      let rawData: Data? = "Hello, world".data(using: .utf8)
+      FileManager.default.createFile(atPath: directoryPath, contents: rawData, attributes: nil)
+      return
+    }
+
+    guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name).path else { return }
+    let rawData: Data? = "Hello, world".data(using: .utf8)
+    FileManager.default.createFile(atPath: directoryPath, contents: rawData, attributes: nil)
+  }
+
 }
+

@@ -10,15 +10,10 @@ import UIKit
 
 final class DocumentsViewController: UIViewController {
   let fileManagerServise = FileManagerService()
-  let list = [String]()
 
-  @IBOutlet private var documentsTableView: UITableView! {
-    willSet {
-      newValue.register(nibCell: DocumentTableViewCell.self)
-    }
-  }
-  var path = ""
-  var directoryPath: String {
+  var path: String?
+
+  var directoryPath: String? {
     get {
       return path
     }
@@ -27,9 +22,15 @@ final class DocumentsViewController: UIViewController {
     }
   }
 
+  @IBOutlet private var documentsTableView: UITableView! {
+    willSet {
+      newValue.register(nibCell: DocumentTableViewCell.self)
+    }
+  }
+
   override func viewDidLoad() {
     super.viewDidLoad()
-//    print(NSHomeDirectory())
+    print(NSHomeDirectory())
     setupNavigationBar()
   }
 }
@@ -37,12 +38,12 @@ final class DocumentsViewController: UIViewController {
 // MARK: DataSource
 extension DocumentsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    fileManagerServise.listFiles(in: directoryPath).count
+    fileManagerServise.listObject(at: directoryPath).count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeue(reusable: DocumentTableViewCell.self, for: indexPath)
-    let object = fileManagerServise.listFiles(in: directoryPath)[indexPath.row]
+    let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
     cell.displayObject(object)
     return cell
   }
@@ -51,8 +52,9 @@ extension DocumentsViewController: UITableViewDataSource {
 // MARK: Delegate
 extension DocumentsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let object = fileManagerServise.listFiles(in: directoryPath)[indexPath.row]
-    goToDirectory(object.url.absoluteString, with: object.name)
+    let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
+
+    goToDirectory(object, with: object)
 
     documentsTableView.deselectRow(at: indexPath, animated: true)
   }
@@ -76,18 +78,18 @@ private extension DocumentsViewController {
 
   @objc
   func addDirectory() {
-    Alert.showAlert(self, Names.directoryName) {
-      print(self.directoryPath)
-      self.fileManagerServise.writeDirectory($0, at: self.directoryPath)
+    Alert.showAlert(self, Names.directoryName) { name in
+      self.fileManagerServise.createDirectory(at: self.directoryPath, with: name)
       self.documentsTableView.reloadData()
     }
   }
 
   @objc
-  func addFile(_ directory: String) {
-    Alert.showAlert(self, Names.fileName) {
-      self.fileManagerServise.writeFile($0)
+  func addFile() {
+    Alert.showAlert(self, Names.fileName) { name in
+      self.fileManagerServise.createFile(at: self.directoryPath, with: name)
       self.documentsTableView.reloadData()
     }
   }
+
 }
