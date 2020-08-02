@@ -16,5 +16,7 @@ final class DocumentTableViewCell: UITableViewCell {
   func displayObject(_ object: String) {
     nameFile.text = object
 //    object.type == .directory ? (imageFile.image = Icon.directory) : (imageFile.image = Icon.file)
+    
+
   }
 }

@@ -47,7 +47,6 @@ struct FileManagerService {
   ///   - path: Путь директории, если nil создается в корневой папке
   ///   - name: Имя новой директории
   func createDirectory(at path: String?, with name: String) {
-
     guard let path = path else {
 
       guard let directoryPath = mainDirectory?.appendingPathComponent(name).path else { return }
@@ -64,7 +63,6 @@ struct FileManagerService {
   ///   - path: Путь создания файла, если nil создается в корневой папке
   ///   - name: Имя нового текстового файла
   func createFile(at path: String?, with name: String) {
-
     guard let path = path else {
 
       guard let directoryPath = mainDirectory?.appendingPathComponent(name).path else { return }
@@ -74,10 +72,33 @@ struct FileManagerService {
     }
 
     guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name).path else { return }
+
     let rawData: Data? = "Hello, world".data(using: .utf8)
     FileManager.default.createFile(atPath: directoryPath, contents: rawData, attributes: nil)
   }
 
+  func readFile(at path: String?, with name: String) -> String? {
+    guard let path = path else {
+
+      guard let directoryPath = mainDirectory?.appendingPathComponent(name) else { return nil }
+
+      guard let fileContent = FileManager.default.contents(atPath: directoryPath.path),
+              let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
+                  return nil
+          }
+
+      return fileContentEncoded
+    }
+
+    guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return nil }
+
+    guard let fileContent = FileManager.default.contents(atPath: directoryPath.path),
+            let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
+                return nil
+        }
+
+    return fileContentEncoded
+    }
 }
 
 private extension FileManagerService {

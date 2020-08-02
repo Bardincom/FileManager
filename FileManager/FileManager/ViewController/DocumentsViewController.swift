@@ -9,10 +9,9 @@
 import UIKit
 
 final class DocumentsViewController: UIViewController {
+
   let fileManagerServise = FileManagerService()
-
   var path: String?
-
   var directoryPath: String? {
     get {
       return path
@@ -38,7 +37,7 @@ final class DocumentsViewController: UIViewController {
 // MARK: DataSource
 extension DocumentsViewController: UITableViewDataSource {
   func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-    fileManagerServise.listObject(at: directoryPath).count
+    return fileManagerServise.listObject(at: directoryPath).count
   }
 
   func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
@@ -53,8 +52,12 @@ extension DocumentsViewController: UITableViewDataSource {
 extension DocumentsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
-//    print("Путь выделенного файла \(object)")
-    goToDirectory(object, with: object)
+
+    if let text = fileManagerServise.readFile(at: directoryPath, with: object) {
+      openFileContent(object, with: text)
+    } else {
+      goToDirectory(object, with: object)
+    }
 
     documentsTableView.deselectRow(at: indexPath, animated: true)
   }
@@ -69,10 +72,17 @@ private extension DocumentsViewController {
     ])
   }
 
-  func goToDirectory(_ path: String, with name: String) {
+  func goToDirectory(_ path: String?, with name: String) {
     let viewController = DocumentsViewController()
     viewController.title = name
     viewController.directoryPath = path
+    navigationController?.pushViewController(viewController, animated: true)
+  }
+
+  func openFileContent(_ path: String, with name: String) {
+    let viewController = ContentFileViewController()
+    viewController.title = path
+    viewController.contentText = name
     navigationController?.pushViewController(viewController, animated: true)
   }
 
