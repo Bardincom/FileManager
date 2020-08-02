@@ -53,7 +53,7 @@ extension DocumentsViewController: UITableViewDataSource {
 extension DocumentsViewController: UITableViewDelegate {
   func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
-
+//    print("Путь выделенного файла \(object)")
     goToDirectory(object, with: object)
 
     documentsTableView.deselectRow(at: indexPath, animated: true)

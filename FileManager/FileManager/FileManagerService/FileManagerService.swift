@@ -23,7 +23,7 @@ struct FileManagerService {
 
   let mainDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
 
-  /// Список обхектов содержищихся в директории
+  /// Список объектов содержищихся в директории
   /// - Parameter path: Путь к директории, если nil отображается список в корневой папке
   /// - Returns: Возвращаем список объектов
   func listObject(at path: String?) -> [String] {
@@ -32,13 +32,14 @@ struct FileManagerService {
 
       guard let directoryPath = mainDirectory?.path,
         let list = try? FileManager.default.contentsOfDirectory(atPath: directoryPath) else { return [String]() }
-      return list
+
+      return getSortedObject(in: list, at: directoryPath)
     }
 
     guard let directoryPath = mainDirectory?.appendingPathComponent(path).path,
       let list = try? FileManager.default.contentsOfDirectory(atPath: directoryPath) else { return [String]() }
 
-    return list
+    return getSortedObject(in: list, at: directoryPath)
   }
 
   /// Создать директорию
@@ -79,3 +80,17 @@ struct FileManagerService {
 
 }
 
+private extension FileManagerService {
+  func getSortedObject(in listObject: [String], at path: String) -> [String] {
+    let listDirectory = listObject.filter { name -> Bool in
+      FileManager.default.contents(atPath: path + "/" + name) == nil
+    }.sorted()
+
+    let listFile = listObject.filter { name -> Bool in
+      FileManager.default.contents(atPath: path + "/" + name) != nil
+    }.sorted()
+
+    return listDirectory + listFile
+  }
+
+}
