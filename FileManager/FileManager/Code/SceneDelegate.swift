@@ -25,6 +25,7 @@ private extension SceneDelegate {
     window = UIWindow(frame: windowScene.coordinateSpace.bounds)
     window?.windowScene = windowScene
     let viewController = DocumentsViewController()
+    viewController.title = Names.documents
     let navigationViewController = UINavigationController(rootViewController: viewController)
     window?.rootViewController = navigationViewController
 

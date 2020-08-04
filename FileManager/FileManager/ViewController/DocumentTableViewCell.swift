@@ -8,19 +8,19 @@
 
 import UIKit
 
-class DocumentTableViewCell: UITableViewCell {
+final class DocumentTableViewCell: UITableViewCell {
 
-  @IBOutlet var imageFile: UIImageView!
-  @IBOutlet var nameFile: UILabel!
+  @IBOutlet private var imageFile: UIImageView!
+  @IBOutlet private var nameFile: UILabel!
 
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        // Initialization code
+  func displayObject(_ object: String, object type: ObjectType) {
+    nameFile.text = object
+
+    switch type {
+      case .directory:
+        imageFile.image = Icon.directory
+      case .file:
+        imageFile.image = Icon.file
     }
-
-    override func setSelected(_ selected: Bool, animated: Bool) {
-        super.setSelected(selected, animated: animated)
-
-        // Configure the view for the selected state
-    }
+  }
 }

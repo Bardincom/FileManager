@@ -60,7 +60,7 @@ whitelist_rules:
     - trailing_semicolon
     - trailing_whitespace
     - unused_import
-    - unused_optional_binding
+    #- unused_optional_binding
     - unused_setter_value
     - vertical_whitespace
     - void_return
