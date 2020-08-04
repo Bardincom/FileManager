@@ -8,17 +8,6 @@
 
 import Foundation
 
-//enum ObjectType {
-//  case directory
-//  case file
-//}
-//
-//struct Object {
-//  var type: ObjectType
-//  var url: URL
-//  var name: String
-//}
-
 struct FileManagerService {
 
   let mainDirectory = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask).first
@@ -27,19 +16,18 @@ struct FileManagerService {
   /// - Parameter path: Путь к директории, если nil отображается список в корневой папке
   /// - Returns: Возвращаем список объектов
   func listObject(at path: String?) -> [String] {
-
     guard let path = path else {
 
-      guard let directoryPath = mainDirectory?.path,
-        let list = try? FileManager.default.contentsOfDirectory(atPath: directoryPath) else { return [String]() }
+      guard let directory = mainDirectory,
+        let list = try? FileManager.default.contentsOfDirectory(atPath: directory.path) else { return [String]() }
 
-      return getSortedObject(in: list, at: directoryPath)
+      return getSortedObject(in: list, at: directory.path)
     }
 
-    guard let directoryPath = mainDirectory?.appendingPathComponent(path).path,
-      let list = try? FileManager.default.contentsOfDirectory(atPath: directoryPath) else { return [String]() }
+    guard let directory = mainDirectory?.appendingPathComponent(path),
+      let list = try? FileManager.default.contentsOfDirectory(atPath: directory.path) else { return [String]() }
 
-    return getSortedObject(in: list, at: directoryPath)
+    return getSortedObject(in: list, at: directory.path)
   }
 
   /// Создать директорию
@@ -49,40 +37,48 @@ struct FileManagerService {
   func createDirectory(at path: String?, with name: String) {
     guard let path = path else {
 
-      guard let directoryPath = mainDirectory?.appendingPathComponent(name).path else { return }
-      try? FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true, attributes: nil)
+      guard let directory = mainDirectory?.appendingPathComponent(name) else { return }
+
+      try? FileManager.default.createDirectory(atPath: directory.path, withIntermediateDirectories: false, attributes: nil)
       return
     }
 
-    guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name).path else { return }
-    try? FileManager.default.createDirectory(atPath: directoryPath, withIntermediateDirectories: true, attributes: nil)
+    guard let directory = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return }
+
+    try? FileManager.default.createDirectory(atPath: directory.path, withIntermediateDirectories: false, attributes: nil)
   }
 
   /// Создать тектовый файл
   /// - Parameters:
   ///   - path: Путь создания файла, если nil создается в корневой папке
   ///   - name: Имя нового текстового файла
-  func createFile(at path: String?, with name: String) {
+  func createFile(at path: String?, withName name: String) {
     guard let path = path else {
 
-      guard let directoryPath = mainDirectory?.appendingPathComponent(name).path else { return }
+      guard let directory = mainDirectory?.appendingPathComponent(name) else { return }
       let rawData: Data? = "Hello, world".data(using: .utf8)
-      FileManager.default.createFile(atPath: directoryPath, contents: rawData, attributes: nil)
+      FileManager.default.createFile(atPath: directory.path, contents: rawData, attributes: nil)
       return
     }
 
-    guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name).path else { return }
+    guard let directory = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return }
 
     let rawData: Data? = "Hello, world".data(using: .utf8)
-    FileManager.default.createFile(atPath: directoryPath, contents: rawData, attributes: nil)
+    FileManager.default.createFile(atPath: directory.path, contents: rawData, attributes: nil)
   }
 
-  func readFile(at path: String?, with name: String) -> String? {
+
+  /// Считывает содержимое файла
+  /// - Parameters:
+  ///   - path: Путь файла
+  ///   - name: Имя файла
+  /// - Returns: Возвращает опциональную строку с результатом.
+  func readFile(at path: String?, withName name: String) -> String? {
     guard let path = path else {
 
-      guard let directoryPath = mainDirectory?.appendingPathComponent(name) else { return nil }
+      guard let directory = mainDirectory?.appendingPathComponent(name) else { return nil }
 
-      guard let fileContent = FileManager.default.contents(atPath: directoryPath.path),
+      guard let fileContent = FileManager.default.contents(atPath: directory.path),
               let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
                   return nil
           }
@@ -90,15 +86,41 @@ struct FileManagerService {
       return fileContentEncoded
     }
 
-    guard let directoryPath = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return nil }
+    guard let directory = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else { return nil }
 
-    guard let fileContent = FileManager.default.contents(atPath: directoryPath.path),
+    guard let fileContent = FileManager.default.contents(atPath: directory.path),
             let fileContentEncoded = String(bytes: fileContent, encoding: .utf8) else {
                 return nil
         }
 
     return fileContentEncoded
     }
+
+  /// Удаляет объект по переданным данным
+  /// - Parameters:
+  ///   - path: Путь к объекту
+  ///   - name: Имя объекта
+  func deleteObject(at path: String?, withName name: String) {
+    guard let path = path else {
+      guard let directory = mainDirectory?.appendingPathComponent(name) else { return}
+      do {
+        try FileManager.default.removeItem(at: directory)
+      } catch let error {
+        print("Error: \(error.localizedDescription)")
+      }
+      return }
+
+    guard let directory = mainDirectory?.appendingPathComponent(path).appendingPathComponent(name) else {
+           return
+       }
+
+    do {
+      try FileManager.default.removeItem(at: directory)
+    } catch let error {
+      print("Error: \(error.localizedDescription)")
+    }
+   }
+
 }
 
 private extension FileManagerService {
@@ -113,5 +135,4 @@ private extension FileManagerService {
 
     return listDirectory + listFile
   }
-
 }

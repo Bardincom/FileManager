@@ -11,6 +11,7 @@ import UIKit
 final class DocumentsViewController: UIViewController {
 
   let fileManagerServise = FileManagerService()
+
   var path: String?
   var directoryPath: String? {
     get {
@@ -29,37 +30,70 @@ final class DocumentsViewController: UIViewController {
 
   override func viewDidLoad() {
     super.viewDidLoad()
-    print(NSHomeDirectory())
+
     setupNavigationBar()
   }
 }
 
 // MARK: DataSource
 extension DocumentsViewController: UITableViewDataSource {
-  func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+  func tableView(_ tableView: UITableView,
+                 numberOfRowsInSection section: Int) -> Int {
     return fileManagerServise.listObject(at: directoryPath).count
   }
 
-  func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+  func tableView(_ tableView: UITableView,
+                 cellForRowAt indexPath: IndexPath) -> UITableViewCell {
     let cell = tableView.dequeue(reusable: DocumentTableViewCell.self, for: indexPath)
     let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
-    cell.displayObject(object)
+
+    if let _ = fileManagerServise.readFile(at: directoryPath, withName: object) {
+      cell.displayObject(object, object: .file)
+    } else {
+      cell.displayObject(object, object: .directory)
+    }
+
     return cell
+  }
+
+  func tableView(_ tableView: UITableView,
+                 commit editingStyle: UITableViewCell.EditingStyle,
+                 forRowAt indexPath: IndexPath) {
+    let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
+
+    if editingStyle == .delete {
+      fileManagerServise.deleteObject(at: directoryPath, withName: object)
+      tableView.deleteRows(at: [indexPath], with: .automatic)
+    }
   }
 }
 
 // MARK: Delegate
 extension DocumentsViewController: UITableViewDelegate {
-  func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-    let object = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
+  func tableView(_ tableView: UITableView,
+                 didSelectRowAt indexPath: IndexPath) {
+    documentsTableView.deselectRow(at: indexPath, animated: true)
 
-    if let text = fileManagerServise.readFile(at: directoryPath, with: object) {
-      openFileContent(object, with: text)
-    } else {
-      goToDirectory(object, with: object)
+    let name = fileManagerServise.listObject(at: directoryPath)[indexPath.row]
+    var newPath: String
+
+    guard var url = fileManagerServise.mainDirectory else { return }
+
+    switch path {
+      case nil:
+        url = url.appendingPathComponent(name)
+        newPath = name
+      default:
+        guard let directoryPath = directoryPath else { return }
+        url = url.appendingPathComponent(directoryPath).appendingPathComponent(name)
+        newPath = directoryPath + "/" + name
     }
 
-    documentsTableView.deselectRow(at: indexPath, animated: true)
+    guard let text = fileManagerServise.readFile(at: directoryPath, withName: name) else {
+      goToDirectory(newPath, with: name)
+      return }
+
+    openFileContent(name, with: text)
   }
 
 }
@@ -72,17 +106,17 @@ private extension DocumentsViewController {
     ])
   }
 
-  func goToDirectory(_ path: String?, with name: String) {
+  func goToDirectory(_ path: String, with name: String) {
     let viewController = DocumentsViewController()
     viewController.title = name
     viewController.directoryPath = path
     navigationController?.pushViewController(viewController, animated: true)
   }
 
-  func openFileContent(_ path: String, with name: String) {
+  func openFileContent(_ name: String, with text: String) {
     let viewController = ContentFileViewController()
-    viewController.title = path
-    viewController.contentText = name
+    viewController.title = name
+    viewController.contentText = text
     navigationController?.pushViewController(viewController, animated: true)
   }
 
@@ -97,7 +131,7 @@ private extension DocumentsViewController {
   @objc
   func addFile() {
     Alert.showAlert(self, Names.fileName) { name in
-      self.fileManagerServise.createFile(at: self.directoryPath, with: name)
+      self.fileManagerServise.createFile(at: self.directoryPath, withName: name)
       self.documentsTableView.reloadData()
     }
   }

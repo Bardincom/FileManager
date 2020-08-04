@@ -14,3 +14,7 @@ enum Icon {
   static let file = UIImage(systemName: "doc.fill")
   static let addFile = UIImage(named: "doc.badge.plus")
 }
+
+enum ObjectType {
+  case directory, file
+}
