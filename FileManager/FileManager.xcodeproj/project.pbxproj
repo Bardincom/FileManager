@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		7A549B2F1011EB47D237EC11 /* Pods_FileManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = BE9BBD3B09224CA6D7831156 /* Pods_FileManager.framework */; };
+		A23796B224D9BCF200DC211A /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = A23796B124D9BCF200DC211A /* Helper.swift */; };
 		A26B2CBE24D6A1C800BFC261 /* ContentFileViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A26B2CBC24D6A1C700BFC261 /* ContentFileViewController.swift */; };
 		A26B2CBF24D6A1C800BFC261 /* ContentFileViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A26B2CBD24D6A1C700BFC261 /* ContentFileViewController.xib */; };
 		A285FDA024D7499C00C913FE /* DocumentTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A285FD9F24D7499C00C913FE /* DocumentTableViewCell.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		5EDEF7AA95344D45D65FD6FC /* Pods-FileManager.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-FileManager.debug.xcconfig"; path = "Target Support Files/Pods-FileManager/Pods-FileManager.debug.xcconfig"; sourceTree = "<group>"; };
+		A23796B124D9BCF200DC211A /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
 		A26B2CBC24D6A1C700BFC261 /* ContentFileViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentFileViewController.swift; sourceTree = "<group>"; };
 		A26B2CBD24D6A1C700BFC261 /* ContentFileViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ContentFileViewController.xib; sourceTree = "<group>"; };
 		A285FD9F24D7499C00C913FE /* DocumentTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DocumentTableViewCell.swift; path = FileManager/ViewController/DocumentTableViewCell.swift; sourceTree = SOURCE_ROOT; };
@@ -152,6 +154,7 @@
 			children = (
 				A2F2553724CB66070064CE50 /* Icon.swift */,
 				A2F2553924CB7E420064CE50 /* Names.swift */,
+				A23796B124D9BCF200DC211A /* Helper.swift */,
 			);
 			path = Constants;
 			sourceTree = "<group>";
@@ -293,6 +296,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A23796B224D9BCF200DC211A /* Helper.swift in Sources */,
 				A2F2554024CDDA160064CE50 /* Alert.swift in Sources */,
 				A2F2553824CB66080064CE50 /* Icon.swift in Sources */,
 				A2F2553424CB2CA90064CE50 /* DocumentsViewController.swift in Sources */,

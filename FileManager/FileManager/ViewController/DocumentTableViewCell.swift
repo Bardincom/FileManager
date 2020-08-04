@@ -15,12 +15,12 @@ final class DocumentTableViewCell: UITableViewCell {
 
   func displayObject(_ object: String, object type: ObjectType) {
     nameFile.text = object
-    
+
     switch type {
       case .directory:
-      imageFile.image = Icon.directory
+        imageFile.image = Icon.directory
       case .file:
-      imageFile.image = Icon.file
+        imageFile.image = Icon.file
     }
   }
 }

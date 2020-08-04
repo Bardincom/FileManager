@@ -25,6 +25,8 @@ final class DocumentsViewController: UIViewController {
   @IBOutlet private var documentsTableView: UITableView! {
     willSet {
       newValue.register(nibCell: DocumentTableViewCell.self)
+      // скрывам строки если нет контента
+      newValue.tableFooterView = UIView()
     }
   }
 
@@ -86,7 +88,7 @@ extension DocumentsViewController: UITableViewDelegate {
       default:
         guard let directoryPath = directoryPath else { return }
         url = url.appendingPathComponent(directoryPath).appendingPathComponent(name)
-        newPath = directoryPath + "/" + name
+        newPath = directoryPath + Path.slash + name
     }
 
     guard let text = fileManagerServise.readFile(at: directoryPath, withName: name) else {
